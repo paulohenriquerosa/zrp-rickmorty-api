@@ -46,6 +46,40 @@ const models: TsoaRoute.Models = {
         "additionalProperties": true,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Pick_Episode.Exclude_keyofEpisode.characters__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"id":{"dataType":"double","required":true},"name":{"dataType":"string","required":true},"air_date":{"dataType":"string","required":true},"episode":{"dataType":"string","required":true},"url":{"dataType":"string","required":true},"created":{"dataType":"string","required":true}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Omit_Episode.characters_": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_Episode.Exclude_keyofEpisode.characters__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Character": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"double","required":true},
+            "name": {"dataType":"string","required":true},
+            "status": {"dataType":"string","required":true},
+            "species": {"dataType":"string","required":true},
+            "type": {"dataType":"string","required":true},
+            "gender": {"dataType":"string","required":true},
+            "origin": {"dataType":"nestedObjectLiteral","nestedProperties":{"url":{"dataType":"string","required":true},"name":{"dataType":"string","required":true}},"required":true},
+            "location": {"dataType":"nestedObjectLiteral","nestedProperties":{"url":{"dataType":"string","required":true},"name":{"dataType":"string","required":true}},"required":true},
+            "image": {"dataType":"string","required":true},
+            "episode": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "url": {"dataType":"string","required":true},
+            "created": {"dataType":"string","required":true},
+        },
+        "additionalProperties": true,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "GetCharactersByEpisodeIdResponseDTO": {
+        "dataType": "refAlias",
+        "type": {"dataType":"intersection","subSchemas":[{"ref":"Omit_Episode.characters_"},{"dataType":"nestedObjectLiteral","nestedProperties":{"characters":{"dataType":"array","array":{"dataType":"refObject","ref":"Character"},"required":true}}}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const templateService = new ExpressTemplateService(models, {"noImplicitAdditionalProperties":"ignore","bodyCoercion":true});
 
@@ -65,6 +99,8 @@ export function RegisterRoutes(app: Router) {
     
         const argsEpisodeController_list: Record<string, TsoaRoute.ParameterSchema> = {
                 page: {"in":"query","name":"page","dataType":"double"},
+                name: {"in":"query","name":"name","dataType":"string"},
+                episode: {"in":"query","name":"episode","dataType":"string"},
         };
         app.get('/episodes',
             ...(fetchMiddlewares<RequestHandler>(EpisodeController)),
@@ -82,6 +118,66 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'list',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsEpisodeController_get: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+        };
+        app.get('/episodes/:id',
+            ...(fetchMiddlewares<RequestHandler>(EpisodeController)),
+            ...(fetchMiddlewares<RequestHandler>(EpisodeController.prototype.get)),
+
+            async function EpisodeController_get(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsEpisodeController_get, request, response });
+
+                const controller = new EpisodeController();
+
+              await templateService.apiHandler({
+                methodName: 'get',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsEpisodeController_getCharactersByEpisodeId: Record<string, TsoaRoute.ParameterSchema> = {
+                id: {"in":"path","name":"id","required":true,"dataType":"double"},
+        };
+        app.get('/episodes/:id/characters',
+            ...(fetchMiddlewares<RequestHandler>(EpisodeController)),
+            ...(fetchMiddlewares<RequestHandler>(EpisodeController.prototype.getCharactersByEpisodeId)),
+
+            async function EpisodeController_getCharactersByEpisodeId(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsEpisodeController_getCharactersByEpisodeId, request, response });
+
+                const controller = new EpisodeController();
+
+              await templateService.apiHandler({
+                methodName: 'getCharactersByEpisodeId',
                 controller,
                 response,
                 next,
