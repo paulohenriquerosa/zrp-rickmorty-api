@@ -10,7 +10,7 @@ on:
       - ".github/workflows/backend-ci-cd.yml"
 
 jobs:
-  build-test-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
 
     env:
