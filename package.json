@@ -19,7 +19,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.9.0",
   "dependencies": {
     "@tsoa/runtime": "^6.6.0",
     "axios": "^1.13.2",

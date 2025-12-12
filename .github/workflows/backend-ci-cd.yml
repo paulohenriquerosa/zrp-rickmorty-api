@@ -24,29 +24,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-
-      - name: Install pnpm
-        run: npm install -g pnpm
+          cache: "npm"
 
       - name: Install dependencies
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: pnpm install --frozen-lockfile
+        run: npm ci || npm install
 
       - name: Generate TSOA routes and swagger
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: pnpm tsoa:gen
+        run: npm run tsoa:gen
 
       - name: Run tests
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: pnpm test
+        run: npm test
 
       - name: Build (tsc)
         working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: pnpm build
-
-      - name: Remove node_modules before deploy
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-        run: rm -rf node_modules
+        run: npm run build
 
       - name: Azure Login
         uses: azure/login@v2
