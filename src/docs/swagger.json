@@ -1,0 +1,147 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Info": {
+				"properties": {
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"pages": {
+						"type": "number",
+						"format": "double"
+					},
+					"next": {
+						"type": "string",
+						"nullable": true
+					},
+					"prev": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"count",
+					"pages",
+					"next",
+					"prev"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"Episode": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"air_date": {
+						"type": "string"
+					},
+					"episode": {
+						"type": "string"
+					},
+					"characters": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"url": {
+						"type": "string"
+					},
+					"created": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"air_date",
+					"episode",
+					"characters",
+					"url",
+					"created"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"EpisodesResponseDTO": {
+				"properties": {
+					"info": {
+						"$ref": "#/components/schemas/Info"
+					},
+					"results": {
+						"items": {
+							"$ref": "#/components/schemas/Episode"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"info",
+					"results"
+				],
+				"type": "object",
+				"additionalProperties": true
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "backend",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/episodes": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/EpisodesResponseDTO"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Episodes"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
