@@ -44,6 +44,10 @@ jobs:
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: pnpm build
 
+      - name: Remove node_modules before deploy
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: rm -rf node_modules
+
       - name: Azure Login
         uses: azure/login@v2
         with:
