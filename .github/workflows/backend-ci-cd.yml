@@ -1,0 +1,42 @@
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      WORKING_DIRECTORY: .
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate TSOA routes and swagger
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: pnpm tsoa:gen
+
+      - name: Run tests
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: pnpm test
+
+      - name: Build (tsc)
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: pnpm build
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: "rickmorty-api"
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.WORKING_DIRECTORY }}
