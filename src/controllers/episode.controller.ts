@@ -33,8 +33,23 @@ export class EpisodeController {
   }
 
   @Get("/{id}/characters")
-  public async getCharactersByEpisodeId(id: number): Promise<GetCharactersByEpisodeIdResponseDTO> {
-    const result = await episodeService.getCharactersByEpisodeId(id);
+  public async getCharactersByEpisodeId(
+    id: number,
+    @Query() page?: number,
+    @Query() name?: string,
+    @Query() status?: "alive" | "dead" | "unknown",
+    @Query() species?: string,
+    @Query() type?: string,
+    @Query() gender?: "female" | "male" | "genderless" | "unknown"
+  ): Promise<GetCharactersByEpisodeIdResponseDTO> {
+    const result = await episodeService.getCharactersByEpisodeId(id, {
+      page,
+      name,
+      status,
+      species,
+      type,
+      gender,
+    });
     return result;
   }
 }

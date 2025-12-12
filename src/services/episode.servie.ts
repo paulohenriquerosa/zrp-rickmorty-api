@@ -1,12 +1,14 @@
 import {
   EpisodeListAllRequestDTO,
   EpisodesResponseDTO,
+  GetCharactersByEpisodeIdRequestDTO,
   GetCharactersByEpisodeIdResponseDTO,
 } from "../dtos/episode.dto";
 import { Episode } from "../entites/episode.entity";
 import { NotFoundError } from "../errors";
 import { ICharacterRepository } from "../repositories/character/ICharacterRepository";
 import { IEpisodeRepository } from "../repositories/episode/IEpisodeRepository";
+import { filterCharacters, sortCharactersByName } from "../utils/charactersFilters";
 
 export class EpisodeService {
   constructor(
@@ -24,7 +26,10 @@ export class EpisodeService {
     return result;
   }
 
-  public async getCharactersByEpisodeId(id: number): Promise<GetCharactersByEpisodeIdResponseDTO> {
+  public async getCharactersByEpisodeId(
+    id: number,
+    params: GetCharactersByEpisodeIdRequestDTO
+  ): Promise<GetCharactersByEpisodeIdResponseDTO> {
     const episode = await this.episodeRepository.getById(id);
 
     if (!episode) {
@@ -43,11 +48,12 @@ export class EpisodeService {
 
     const characters = await this.characterRepository.listCharactersByIds(charactersIds);
 
-    const orderedCharacters = [...characters].sort((a, b) => a.name.localeCompare(b.name));
+    const filtered = filterCharacters(characters, params);
+    const ordered = sortCharactersByName(filtered);
 
     return {
       ...episode,
-      characters: orderedCharacters,
+      characters: ordered,
     };
   }
 }

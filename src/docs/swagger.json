@@ -356,6 +356,66 @@
 							"format": "double",
 							"type": "number"
 						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"alive",
+								"dead",
+								"unknown"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "species",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "type",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "gender",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"female",
+								"male",
+								"genderless",
+								"unknown"
+							]
+						}
 					}
 				]
 			}

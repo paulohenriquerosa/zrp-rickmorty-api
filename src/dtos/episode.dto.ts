@@ -22,3 +22,12 @@ export interface EpisodeListAllRequestDTO {
 export type GetCharactersByEpisodeIdResponseDTO = Omit<Episode, "characters"> & {
   characters: Character[];
 };
+
+export interface GetCharactersByEpisodeIdRequestDTO {
+  name?: string;
+  status?: "alive" | "dead" | "unknown";
+  species?: string;
+  type?: string;
+  gender?: "female" | "male" | "genderless" | "unknown";
+  page?: number;
+}

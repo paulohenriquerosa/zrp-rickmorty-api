@@ -161,6 +161,12 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsEpisodeController_getCharactersByEpisodeId: Record<string, TsoaRoute.ParameterSchema> = {
                 id: {"in":"path","name":"id","required":true,"dataType":"double"},
+                page: {"in":"query","name":"page","dataType":"double"},
+                name: {"in":"query","name":"name","dataType":"string"},
+                status: {"in":"query","name":"status","dataType":"union","subSchemas":[{"dataType":"enum","enums":["alive"]},{"dataType":"enum","enums":["dead"]},{"dataType":"enum","enums":["unknown"]}]},
+                species: {"in":"query","name":"species","dataType":"string"},
+                type: {"in":"query","name":"type","dataType":"string"},
+                gender: {"in":"query","name":"gender","dataType":"union","subSchemas":[{"dataType":"enum","enums":["female"]},{"dataType":"enum","enums":["male"]},{"dataType":"enum","enums":["genderless"]},{"dataType":"enum","enums":["unknown"]}]},
         };
         app.get('/episodes/:id/characters',
             ...(fetchMiddlewares<RequestHandler>(EpisodeController)),
