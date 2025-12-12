@@ -6,9 +6,14 @@
     "rootDir": "src",
     "outDir": "dist",
     "strict": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src"]
 }
