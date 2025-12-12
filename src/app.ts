@@ -6,8 +6,13 @@ import { RegisterRoutes } from "./routes/routes";
 
 import * as openApiDocument from "./docs/swagger.json";
 import { AppError } from "./errors";
+import { ensureRedisConnected } from "./lib/redis";
 
 export const app = express();
+
+ensureRedisConnected().catch((err) => {
+  console.error("Failed to connect to Redis", err);
+});
 
 app.use(express.json());
 

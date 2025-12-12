@@ -24,6 +24,7 @@
     "@tsoa/runtime": "^6.6.0",
     "axios": "^1.13.2",
     "express": "^5.2.1",
+    "redis": "^5.10.0",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
