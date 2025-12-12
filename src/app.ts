@@ -7,13 +7,18 @@ import { RegisterRoutes } from "./routes/routes";
 import * as openApiDocument from "./docs/swagger.json";
 import { AppError } from "./errors";
 import { ensureRedisConnected } from "./lib/redis";
-
+import cors from "cors";
 export const app = express();
 
 ensureRedisConnected().catch((err) => {
   console.error("Failed to connect to Redis", err);
 });
 
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+  })
+);
 app.use(express.json());
 
 RegisterRoutes(app);

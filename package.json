@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev:redis": "docker compose up -d redis",
+    "dev": "npm run dev:redis && ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "jest",
@@ -22,11 +23,13 @@
   "dependencies": {
     "@tsoa/runtime": "^6.6.0",
     "axios": "^1.13.2",
+    "cors": "^2.8.5",
     "express": "^5.2.1",
     "redis": "^5.10.0",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.1",
